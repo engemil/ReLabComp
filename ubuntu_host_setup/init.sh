@@ -81,11 +81,24 @@ if confirm "Do you want to setup static IP for this computer?"; then
     ip link | grep -E '^[0-9]:' | awk '{print $2}' | tr -d ':'
     read -p "Enter the network interface (e.g., eth0 for wired, wlan0 for WiFi): " INTERFACE
 
+    # Get current information
+    IP=$(hostname -I | awk '{print $1}')  # Takes the first IP if multiple exist
+    GATEWAY=$(ip route | grep default | awk '{print $3}')
+    SUBNET_CIDR=$(ip -o -f inet addr show $INTERFACE | awk '{print $4}' | cut -d'/' -f2)
+    DNS_SERVERS=$(nmcli dev show $INTERFACE | grep 'IP4.DNS' | awk '{print $2}' | tr '\n' ' ')
+
+    # Output the results
+    echo "Current Settings"
+    echo "Network Interface: $INTERFACE"
+    echo "IP Address: $IP"
+    echo "Gateway Address: $GATEWAY"
+    echo "DNS Servers: $DNS_SERVERS"
+
     # Prompt user for network details
-    read -p "Enter the static IP address (e.g., 192.168.1.100): " IP_ADDRESS
+    read -p "Enter the static IP address (current IP is $IP): " IP_ADDRESS
     read -p "Enter the subnet mask (e.g., 255.255.255.0 or /24): " SUBNET
-    read -p "Enter the gateway address (e.g., 192.168.1.1): " GATEWAY
-    read -p "Enter the DNS server (e.g., 8.8.8.8): " DNS
+    read -p "Enter the gateway address (current gateway is $$GATEWAY): " GATEWAY
+    read -p "Enter the DNS server (current DNS Server(s) are $DNS_SERVERS): " DNS
 
     # Convert subnet mask to CIDR notation if not already
     if [[ "$SUBNET" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
