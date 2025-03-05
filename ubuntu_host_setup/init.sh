@@ -28,7 +28,7 @@ confirm() {
 ##################################################
 
 # Initializing script
-echo "Initial Setup Server script started..."
+echo "Initial setup script started..."
 echo ""
 
 ##################################################
@@ -240,5 +240,31 @@ else
 fi
 
 echo ""
+
+##################################################
+
+if confirm "Do you want apply strict SSH rules?"; then
+    
+    # Disable root user SSH login
+    echo "Disabling root SSH login, SSH empty passwords, and SSH password authentication (only allows SSH-keys)..."
+    sudo sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin no/g' /etc/ssh/sshd_config
+    sudo sed -i 's/^#PermitEmptyPasswords no/PermitEmptyPasswords no/g' /etc/ssh/sshd_config
+    sudo sed -i 's/^#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
+    # in AWS Ligthsail (debian) PasswordAuthentication is set to no by default.
+
+    echo ""
+
+    echo "Restarting SSH service..."
+    sudo systemctl restart sshd
+
+else
+    echo "Skipping applying strict SSH rules."
+fi
+
+echo ""
+
+##################################################
+
+echo "Initial setup script complete!"
 
 ##################################################
