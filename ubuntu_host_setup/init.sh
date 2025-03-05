@@ -154,11 +154,13 @@ if confirm "Do you want install and enable SSH Client and Server?"; then
     # Install SSH client
     echo "Installing openssh-client..."
     apt install openssh-client -y
+    echo ""
 
     # Install SSH Server
     echo "Installing openssh-server..."
     apt-get install openssh-server -y
-
+    echo ""
+    
     # Enable SSH Server
     echo "Enabling SSH..."
     systemctl enable ssh
