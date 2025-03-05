@@ -1,7 +1,7 @@
 # Use the latest Ubuntu image from Docker Hub
 FROM ubuntu:latest
 
-# update packages and install python
+# Update and Upgrade
 RUN apt-get update
 
 # Example on copying files from project to container

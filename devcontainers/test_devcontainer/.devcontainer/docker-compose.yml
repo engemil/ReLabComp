@@ -1,0 +1,11 @@
+version: '3'
+services:
+  simple:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile # The path to our Dockerfile
+    command: /bin/bash
+    tty: true
+    volumes:
+      - /dev:/dev
+      - ..:/workspace:cached # To be able to spin up from devcontainers
