@@ -97,7 +97,7 @@ if confirm "Do you want to setup static IP for this computer?"; then
     # Prompt user for network details
     read -p "Enter the static IP address (current IP is $IP): " IP_ADDRESS
     read -p "Enter the subnet mask (e.g., 255.255.255.0 or /24): " SUBNET
-    read -p "Enter the gateway address (current gateway is $$GATEWAY): " GATEWAY
+    read -p "Enter the gateway address (current gateway is $GATEWAY): " GATEWAY
     read -p "Enter the DNS server (current DNS Server(s) are $DNS_SERVERS): " DNS
 
     # Convert subnet mask to CIDR notation if not already
