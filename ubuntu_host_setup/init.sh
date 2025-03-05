@@ -126,9 +126,9 @@ network:
       dhcp4: no
       addresses:
         - $IP_ADDRESS$SUBNET
-    gateway4: $GATEWAY
-    nameservers:
-      addresses: [$DNS]
+      gateway4: $GATEWAY
+      nameservers:
+        addresses: [$DNS]
 EOF
 
     # Apply the configuration
