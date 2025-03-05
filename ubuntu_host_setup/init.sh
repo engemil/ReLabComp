@@ -120,15 +120,15 @@ if confirm "Do you want to setup static IP for this computer?"; then
     # Create new netplan configuration
     cat > "$NETPLAN_FILE" <<EOF
 network:
-version: 2
-ethernets:
+  version: 2
+  ethernets:
     $INTERFACE:
-    dhcp4: no
-    addresses:
+      dhcp4: no
+      addresses:
         - $IP_ADDRESS$SUBNET
     gateway4: $GATEWAY
     nameservers:
-        addresses: [$DNS]
+      addresses: [$DNS]
 EOF
 
     # Apply the configuration
