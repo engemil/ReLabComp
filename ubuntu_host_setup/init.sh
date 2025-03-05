@@ -126,7 +126,9 @@ network:
       dhcp4: no
       addresses:
         - $IP_ADDRESS$SUBNET
-      gateway4: $GATEWAY
+      routes:
+        - to: default
+          via: $GATEWAY
       nameservers:
         addresses: [$DNS]
 EOF
