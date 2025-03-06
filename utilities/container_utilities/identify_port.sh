@@ -2,7 +2,7 @@
 
 # HOW-TO use:
 # Change permission: chmod +x ./identify_port.sh
-# Execute: ./identify_port.sh [prefix]  (defaults to "simple" if no prefix provided)
+# Execute: ./identify_port.sh
 
 
 
