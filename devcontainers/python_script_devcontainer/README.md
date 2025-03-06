@@ -12,9 +12,15 @@ Python script environment. Setup for adding running python scripts interacting w
     - From linux: `ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 2222 labuser@<HOST-COMPUTER-IP>`
     - From Windows: `ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=NUL -p 2222 labuser@<HOST-COMPUTER-IP>`
     - NB! Maybe you need to enable port 2222 on host computer: `./ReLabComp/utilities/host_utilities/setup_ufw_ports.sh`
+    - **NB!** Problematic, need to access the container and run the following: `sudo service ssh restart`
+        - Note: Tried to add it to the `Dockerfile`, but doesn't seem to work.
+
+TODO: FIX problem related to needing to `sudo service ssh restart` inside container before doing direct connection with SSH
 
 ## HOW-TO Run from VS Code
 
 TODO: Add notes here
+
+
 
 
