@@ -73,6 +73,27 @@ echo ""
 
 ##################################################
 
+if confirm "Do you want to install Docker?"; then
+    # Docker
+    echo "Installing and setting up Docker..."
+
+    # Check if Docker is installed
+    if ! command -v docker &> /dev/null; then
+        curl -fsSL https://get.docker.com | bash -
+        # test docker with: sudo docker run hello-world
+    else
+        echo "Docker is already installed!"
+        docker --version
+    fi
+
+else
+    echo "Skipping installing Docker."
+fi
+
+echo ""
+
+##################################################
+
 if confirm "Do you want to setup static IP for this computer?"; then
 
     echo "Setting up static IP for this computer..."
@@ -180,32 +201,34 @@ if confirm "Do you want install and enable Uncomplicated Firewall (UFW)?"; then
 
     echo "Configuring to allow SSH through UFW..."
     ufw allow ssh
+
+    # Prompt for additional ports
+    read -p "Enter ports to open (space-separated, e.g., '80 443'), or press Enter to skip: " ports
+    
+    # Check if ports variable is not empty
+    if [ ! -z "$ports" ]; then
+        # Convert space-separated ports into array
+        IFS=' ' read -r -a port_array <<< "$ports"
+        
+        # Add each port to UFW
+        for port in "${port_array[@]}"; do
+            # Check if port is a valid number
+            if [[ "$port" =~ ^[0-9]+$ ]]; then
+                ufw allow "$port"
+                echo "Allowed port $port"
+            else
+                echo "Invalid port number: $port - skipping"
+            fi
+        done
+    else
+        echo "No additional ports specified"
+    fi
+
     echo "Enabling UFW..."
     ufw enable
 
 else
     echo "Skipping installing and enabling UFW."
-fi
-
-echo ""
-
-##################################################
-
-if confirm "Do you want to install Docker?"; then
-    # Docker
-    echo "Installing and setting up Docker..."
-
-    # Check if Docker is installed
-    if ! command -v docker &> /dev/null; then
-        curl -fsSL https://get.docker.com | bash -
-        # test docker with: sudo docker run hello-world
-    else
-        echo "Docker is already installed!"
-        docker --version
-    fi
-
-else
-    echo "Skipping installing Docker."
 fi
 
 echo ""

@@ -1,0 +1,16 @@
+services:
+  labcontainer:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile # The path to our Dockerfile
+      args:
+        - LABUSER_PASSWORD=${LABUSER_PASSWORD}
+    container_name: labcontainer-001
+    command: /bin/bash
+    volumes:
+      - /dev:/dev
+      - ../project:/home/labuser/project:cached # To be able to spin up from devcontainers
+    tty: true
+    ports:
+      - "2222:22"
+    
