@@ -38,8 +38,10 @@ RUN usermod -aG sudo labuser
 RUN mkdir -p /etc/sudoers.d && \
     echo "labuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/labuser
 
-#RUN mkdir /home/labuser/.ssh && chown labuser:labuser /home/labuser/.ssh
+
 RUN mkdir /var/run/sshd
+RUN sed -i 's/^#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
+RUN service ssh restart    
 
 
 USER labuser
