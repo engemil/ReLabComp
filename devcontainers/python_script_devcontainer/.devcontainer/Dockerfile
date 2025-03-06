@@ -38,14 +38,11 @@ RUN usermod -aG sudo labuser
 RUN mkdir -p /etc/sudoers.d && \
     echo "labuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/labuser
 
-
 RUN mkdir /var/run/sshd
 RUN sed -i 's/^#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
 
-
-
+# Change to labuser and make its home directory to the current directory
 USER labuser
-RUN sudo service ssh restart
 WORKDIR /home/labuser
 
 # To allow continuous access over SSH without stopping container
