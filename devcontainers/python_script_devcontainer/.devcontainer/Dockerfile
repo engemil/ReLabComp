@@ -5,14 +5,15 @@ FROM ubuntu:latest
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Update and Upgrade
-RUN apt-get update -y
-RUN apt-get upgrade -y
+RUN apt update -y
+RUN apt upgrade -y
 
 # Essentials
 RUN apt install sudo -y
 RUN apt install git -y
 RUN apt install usbutils -y
 RUN apt install build-essential -y
+RUN apt install nano -y
 
 # Install SSH Server
 RUN apt install openssh-server -y

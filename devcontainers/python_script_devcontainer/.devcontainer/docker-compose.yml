@@ -8,9 +8,13 @@ services:
     container_name: labcontainer-001
     command: /bin/bash
     volumes:
-      - /dev:/dev
+      #- /dev:/dev
       - ../project:/home/labuser/project:cached # To be able to spin up from devcontainers
     tty: true
+    #devices:
+    #  - "/dev/ttyACM0:/dev/ttyACM0"
+    #  - "/dev/ttyUSB0:/dev/ttyUSB0"
+    privileged: true
     ports:
       - "2222:22"
     
