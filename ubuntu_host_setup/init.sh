@@ -94,6 +94,76 @@ echo ""
 
 ##################################################
 
+# Add existing user(s) to set up sudo without password
+if confirm "Do you want to setup existing user(s) to use sudo without password?"; then
+    while true; do
+        # Prompt for username
+        echo "Enter username (or press Enter to finish):"
+        read -r USERNAME
+
+        # Check if input is empty
+        if [ -z "$USERNAME" ]; then
+            echo "No more users to process. Exiting..."
+            break
+        fi
+
+        # Check if user exists
+        if ! id "$USERNAME" >/dev/null 2>&1; then
+            echo "Error: User '$USERNAME' does not exist."
+            continue
+        fi
+
+        # Check if user is in sudo group
+        if ! groups "$USERNAME" | grep -q "\bsudo\b"; then
+            echo "User '$USERNAME' is not in sudo group. Adding them now..."
+            usermod -aG sudo "$USERNAME"
+            if [ $? -eq 0 ]; then
+                echo "Successfully added $USERNAME to sudo group"
+            else
+                echo "Error: Failed to add $USERNAME to sudo group"
+                continue
+            fi
+        else
+            echo "User '$USERNAME' is already in sudo group"
+        fi
+
+        # Create sudoers file for the user
+        SUDOERS_FILE="/etc/sudoers.d/$USERNAME"
+
+        # Check if file already exists
+        if [ -f "$SUDOERS_FILE" ]; then
+            echo "Warning: Sudoers file for $USERNAME already exists."
+            echo "Do you want to overwrite it? (y/N)"
+            read -r response
+            if [[ ! "$response" =~ ^[Yy]$ ]]; then
+                echo "Skipping $USERNAME"
+                continue
+            fi
+        fi
+
+        # Write the sudoers configuration
+        echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > "$SUDOERS_FILE"
+
+        # Set correct permissions
+        chmod 0440 "$SUDOERS_FILE"
+
+        # Verify syntax of sudoers files
+        if visudo -c >/dev/null 2>&1; then
+            echo "Successfully configured sudo without password for $USERNAME."
+        else
+            echo "Error: Syntax check failed for $USERNAME, removing invalid file."
+            rm "$SUDOERS_FILE"
+        fi
+    done
+
+else
+    echo "Skipping setup existing user(s) to use sudo without password."
+fi
+
+echo ""
+
+##################################################
+
 if confirm "Do you want to setup static IP for this computer?"; then
 
     echo "Setting up static IP for this computer..."

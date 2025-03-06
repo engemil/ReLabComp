@@ -39,7 +39,7 @@ RUN mkdir -p /etc/sudoers.d && \
     echo "labuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/labuser
 
 #RUN mkdir /home/labuser/.ssh && chown labuser:labuser /home/labuser/.ssh
-RUN mkdir /var/run/sshd    
+RUN mkdir /var/run/sshd
 
 
 USER labuser
