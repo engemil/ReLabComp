@@ -41,10 +41,11 @@ RUN mkdir -p /etc/sudoers.d && \
 
 RUN mkdir /var/run/sshd
 RUN sed -i 's/^#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
-RUN service ssh restart    
+
 
 
 USER labuser
+RUN sudo service ssh restart
 WORKDIR /home/labuser
 
 # To allow continuous access over SSH without stopping container
