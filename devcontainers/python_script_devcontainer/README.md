@@ -8,10 +8,10 @@ Python script environment. Setup for adding running python scripts interacting w
 - Spin up container: `sudo docker compose -f .devcontainer/docker-compose.yml up -d`
     - To stop container: `sudo docker compose -f .devcontainer/docker-compose.yml down`
     - To access container (from host computer): `sudo docker exec -it labcontainer-001 /bin/bash`
-- If you want to access this container via SSH from another computer: `ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 2222 labuser@<HOST-COMPUTER-IP>`
-    - NB! Check which ports are open on host computer?!
-        - Add port 2222 to ufW: `sudo ufw allows 2222`
-        - Open ports on ufw: `sudo ufw reload`
+- If you want to access this container via SSH from another computer:
+    - From linux: `ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 2222 labuser@<HOST-COMPUTER-IP>`
+    - From Windows: `ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=NUL -p 2222 labuser@<HOST-COMPUTER-IP>`
+    - NB! Maybe you need to enable port 2222 on host computer: `./ReLabComp/utilities/host_utilities/setup_ufw_ports.sh`
 
 ## HOW-TO Run from VS Code
 
