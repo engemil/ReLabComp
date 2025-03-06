@@ -15,8 +15,6 @@ Python script environment. Setup for adding running python scripts interacting w
     - **NB!** Problematic, need to access the container and run the following: `sudo service ssh restart`
         - Note: Tried to add it to the `Dockerfile`, but doesn't seem to work.
 
-TODO: FIX problem related to needing to `sudo service ssh restart` inside container before doing direct connection with SSH
-
 ## HOW-TO Run from VS Code
 
 TODO: Add notes here
