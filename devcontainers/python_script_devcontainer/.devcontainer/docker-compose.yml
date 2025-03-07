@@ -8,7 +8,7 @@ services:
     container_name: labcontainer-001
     #command: /bin/bash # Do not run this, it overwrites the last CMD in Dockerfile
     volumes:
-      #- /dev:/dev
+      - /dev:/dev
       - ../project:/home/labuser/project:cached # To be able to spin up from devcontainers
     tty: true
     #stdin_open: true
