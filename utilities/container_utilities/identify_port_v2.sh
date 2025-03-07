@@ -5,6 +5,7 @@
 # Execute: ./identify_port.sh
 
 
+tty_result=""
 
 # Function to check if lsusb is installed
 check_lsusb() {
@@ -47,12 +48,13 @@ find_devices() {
     device=$(echo "$device_line" | awk '{print $4}' | tr -d ':')
     echo "Found '$device_prefix' (VID:PID) $vid_pid at Bus $bus, Device $device"
 
-    tty_dev=$(ls /dev/serial/by-id/*"$vid_pid"* 2>/dev/null | head -n 1)
+    tty_dev=$(ls /dev/serial/by-id/*"$device_prefix" 2>/dev/null | head -n 1)
+    
 
     if [ -n "$tty_dev" ]; then
         real_dev=$(readlink -f "$tty_dev")
         echo "Device '$device_prefix' is connected to: $real_dev"
-        return 0
+        return $tty_dev
     fi
 
     echo "No /dev/tty* device found for '$device_prefix'."
@@ -65,7 +67,14 @@ main_func() {
     check_lsusb
     get_device_prefix
     find_devices
+
+    # "Return" the tty_result by echoing it
+    if [ -n "$tty_result" ]; then
+        echo "$tty_result"
+    fi
 }
+
+result=$(main_func)
 
 # Run main func
 main_func
