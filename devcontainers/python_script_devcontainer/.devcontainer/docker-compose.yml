@@ -6,7 +6,7 @@ services:
       args:
         - LABUSER_PASSWORD=${LABUSER_PASSWORD}
     container_name: labcontainer-001
-    command: /bin/bash
+    #command: /bin/bash # Do not run this, it overwrites the last CMD in Dockerfile
     volumes:
       #- /dev:/dev
       - ../project:/home/labuser/project:cached # To be able to spin up from devcontainers
