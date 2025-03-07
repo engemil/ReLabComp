@@ -41,10 +41,6 @@ RUN useradd -m -s /bin/bash labuser && \
     echo "labuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/labuser && \
     chmod 0440 /etc/sudoers.d/labuser
 
-# Change to labuser and set working directory
-USER labuser
-WORKDIR /home/labuser
-
 # Port exposed
 EXPOSE 22
 
