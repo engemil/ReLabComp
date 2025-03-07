@@ -53,12 +53,11 @@ find_devices() {
         real_dev=$(readlink -f "$tty_dev")
         echo "Device '$device_prefix' is connected to: $real_dev"
         return 0
-    else
-        return 1
     fi
 
     echo "No /dev/tty* device found for '$device_prefix'."
     #echo "No /dev/tty* device found for '$device_prefix' in /dev/serial/by-id/."
+    return 1
 }
 
 main_func() {
