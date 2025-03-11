@@ -1,0 +1,21 @@
+services:
+  labcontainer:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile # The path to our Dockerfile
+      args:
+        - LABUSER_PASSWORD=${LABUSER_PASSWORD}
+    container_name: labcontainer-003
+    #command: /bin/bash # Do not run this, it overwrites the last CMD in Dockerfile
+    volumes:
+      - /dev:/dev
+      - ../workspace:/home/labuser/workspace:cached # To be able to spin up from devcontainers
+    tty: true
+    #stdin_open: true
+    privileged: true
+    #devices:
+    #  - "/dev/ttyACM0:/dev/ttyACM0"
+    #  - "/dev/ttyUSB0:/dev/ttyUSB0"
+    ports:
+      - "2223:22"
+    

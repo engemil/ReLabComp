@@ -1,0 +1,17 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+	"name": "labscripts-dev-env",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "labcontainer",
+	"workspaceFolder": "/home/labuser/workspace",
+    "remoteUser": "labuser",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.ccptools",
+                "twxs.cmake"
+            ]
+        }
+    }
+}
