@@ -28,6 +28,10 @@ RUN apt install python3-serial -y
 # Clean list
 RUN rm -rf /var/lib/apt/lists/*
 
+# Set root password # NB! Make use of this only if you have limited access to container
+ARG ROOT_PASSWORD
+RUN echo "root:${ROOT_PASSWORD}" | chpasswd
+
 # Prepare SSH config
 RUN mkdir -p /var/run/sshd && \
     sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
