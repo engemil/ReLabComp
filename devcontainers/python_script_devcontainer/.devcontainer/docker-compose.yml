@@ -5,6 +5,7 @@ services:
       dockerfile: .devcontainer/Dockerfile # The path to our Dockerfile
       args:
         - LABUSER_PASSWORD=${LABUSER_PASSWORD}
+        - ROOT_PASSWORD=${ROOT_PASSWORD}
     container_name: labcontainer-001
     #command: /bin/bash # Do not run this, it overwrites the last CMD in Dockerfile
     volumes:
