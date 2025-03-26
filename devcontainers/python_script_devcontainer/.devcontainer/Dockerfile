@@ -34,7 +34,8 @@ RUN echo "root:${ROOT_PASSWORD}" | chpasswd
 
 # Prepare SSH config
 RUN mkdir -p /var/run/sshd && \
-    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
+    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
+    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
 # Create labuser and set up sudo without password
 ARG LABUSER_PASSWORD
